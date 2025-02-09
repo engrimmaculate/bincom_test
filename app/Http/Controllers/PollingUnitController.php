@@ -19,7 +19,7 @@ class PollingUnitController extends Controller
         return view('layouts.index', compact('pollingUnits'));
     }
 
-    // create a new polling unit
+    // Display new polling unit results Form
     public function create()
     {
         $pu= DB::table('polling_unit')->select ('uniqueid','polling_unit_id','polling_unit_number','polling_unit_name')->get();
@@ -53,13 +53,7 @@ class PollingUnitController extends Controller
             'user_ip_address'=>$data['user_ip_address']
         ]);
 
-        // dd($data,$results);
-        // Redirect to the polling units result page
-        //
-       
-        // dd($latest_results,$pu);
-        // return view('pages.list', compact('latest_results', 'pu','lgas'))->with('success', 'Polling Unit added successfully.');
-        // return redirect()->route('pu.search')->with('success', 'Polling Unit added successfully.',['latest_results'=>$latest_results,'pu'=>$pu,'lgas'=>$lgas]);
+        
         return redirect()->route('polling-unit.results')->with('success', 'Polling Unit added successfully.');
     }
 
