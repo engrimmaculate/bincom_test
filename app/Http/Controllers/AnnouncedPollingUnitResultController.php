@@ -57,18 +57,18 @@ class AnnouncedPollingUnitResultController extends Controller
 
     {
 
-        // dd($request->all());
+        // Validate Data from form
         $data= $request->validate([
             'pu' =>'required',
             'id' =>'required',
             'pu_name' =>'required',
         ]);
-
+    // Get the Announced Results for a specified PU
         $results = DB::table('announced_pu_results')->select("*")
         ->where('polling_unit_uniqueid',  $data['id'])
         ->orderBy('party_abbreviation', 'asc')
         ->get();
-
+    //Get the LGA
         $lgas= DB::table('lga')->select ('lga_id','lga_name')->get();
         $pu= DB::table('polling_unit')->select ('uniqueid','polling_unit_id','polling_unit_number','polling_unit_name')->get();
         return view('pages.list', compact('results', 'pu','data','lgas'));
@@ -154,8 +154,6 @@ class AnnouncedPollingUnitResultController extends Controller
             'date_entered'=>$data['date_entered'],
             'user_ip_address'=>$data['user_ip_address']
         ]);
-
-        // dd($data,$results);
         // Redirect to the polling units index page
         return redirect()->route('pu.search')->with('success', 'Polling Unit added successfully.');
     }    
